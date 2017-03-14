@@ -42,6 +42,9 @@ if( WIN32 )
   # advapi32 required for CryptAcquireContextW in lib/Support/Windows/Path.inc.
   # ntdll required for RtlGetLastNtStatus in lib/Support/ErrorHandling.cpp.
   set(system_libs ${system_libs} psapi shell32 ole32 uuid advapi32 ws2_32 ntdll)
+  if( MINGW )
+    set(system_libs ${system_libs} pthread)
+  endif()
 elseif( CMAKE_HOST_UNIX )
   if( HAVE_LIBRT )
     set(system_libs ${system_libs} rt)
