@@ -19,7 +19,7 @@ To build this library, you will need:
 Just run the  following commands in a terminal window to get started:
 
 ```cmd
-build.cmd
+build.bat
 ```
 
 Once it's done, you can see your bootstrap of LLVM in `.bin/bootstrap`. You can then paste it into your GNU Windows installation folder.
