@@ -11,4 +11,4 @@ set /a BUILDCPU=%NUMBER_OF_PROCESSORS%/2
 md llvm && cd llvm
 cmake -G "Unix Makefiles" -DLLVM_ENABLE_PROJECTS="clang;lld;lldb" -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_PREFIX_PATH=../../bootstrap ../../../llvm
 cmake --build .
-cmake --install .
+cmake --install . --prefix ../../bootstrap
