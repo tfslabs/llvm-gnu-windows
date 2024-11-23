@@ -1,0 +1,39 @@
+name: GNU Windows extension extractor for GitHub Actions
+
+on:
+  push:
+    branches:
+      - no-available-just-rename-in-case-you-want
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  download-and-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Zstandard for Extraction
+        run: sudo apt install -y xz-utils tar
+
+      - name: Obtain source code from https://repo.msys2.org/mingw/sources/
+        run: |
+          wget https://frippery.org/files/busybox/busybox-w32-FRP-5467-g9376eebd8.tgz -O busybox-w32-FRP-5467-g9376eebd8.tgz
+
+      - name: Extract Source Code into Root Directory
+        run: tar --strip-components=1 -xf busybox-w32-FRP-5467-g9376eebd8.tgz
+
+      - name: Commit Changes
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          rm busybox-w32-FRP-5467-g9376eebd8.tgz
+          rm .gitignore
+          rm -rf .github/workflows/*.yml
+          git add .
+          git commit -m "GNU Windows extension extractor for GitHub Actions"
+          git push
